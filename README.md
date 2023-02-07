@@ -9,6 +9,12 @@ A file consisting of the transactions will be created called `transactions-examp
 
 The filed `rawTransaction` is the RLP encoded transaction.
 
+## Understanding RLP Encodings
+
+Here is a brilliant write-up on RLP encodings that you can read to understand RLP encoding (not decoding) in depth.
+
+[Medium Article](https://medium.com/@markodayansa/a-comprehensive-guide-to-rlp-encoding-in-ethereum-6bd75c126de0)
+
 ## Example
 
 <img width="1728" alt="Screenshot 2023-02-07 at 11 59 53 AM" src="https://user-images.githubusercontent.com/32522659/217166725-b4ec0a3f-2e5b-493d-92de-6ddda080213e.png">
