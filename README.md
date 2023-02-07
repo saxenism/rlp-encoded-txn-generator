@@ -7,7 +7,7 @@ The number of tranasactions you want must be passed as a command line argument.
 
 A file consisting of the transactions will be created called `transactions-example-file.json`.
 
-The filed `rawTransaction` is the RLP encoded transaction.
+The field `rawTransaction` is the RLP encoded transaction.
 
 ## Understanding RLP Encodings
 
