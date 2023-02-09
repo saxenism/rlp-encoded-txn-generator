@@ -26,4 +26,6 @@ Here is a brilliant write-up on RLP encodings that you can read to understand RL
 
 ## Decoder
 
-A Handy tool to decode these RLP encoded transactions can be found [here](https://toolkit.abdk.consulting/ethereum#rlp)
+A Handy tool to decode these RLP encoded transactions can be found [here](https://toolkit.abdk.consulting/ethereum#rlp). 
+
+Another example of decoding an RLP encoded transaction can be found [here](https://gist.github.com/miguelmota/9099b705cf433336036065ab748c8404).
