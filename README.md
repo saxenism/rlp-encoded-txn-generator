@@ -23,3 +23,7 @@ Here is a brilliant write-up on RLP encodings that you can read to understand RL
 <br />
 
 <img width="1728" alt="Screenshot 2023-02-07 at 12 00 04 PM" src="https://user-images.githubusercontent.com/32522659/217166803-5fc0a29b-c298-41ad-9515-5bc04f2543c6.png">
+
+## Decoder
+
+A Handy tool to decode these RLP encoded transactions can be found [here](https://toolkit.abdk.consulting/ethereum#rlp)
