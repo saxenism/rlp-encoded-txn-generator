@@ -94,19 +94,26 @@ async function generateRLPEncodedTransactions() {
     // Sign transactions so that RLP encoded transactions can be returned
     let txnValue = generateRandomInteger(lowerTransactionLimit, upperTransactionLimit);
     let gasValue = generateRandomInteger(lowerGasSpendLimit, upperGasSpendLimit);
+    let randomStringLength = generateRandomInteger(0, 500);
+    let hexedData = web3.utils.toHex(generateRandomString(randomStringLength));
 
     for(let i = 0; i < numTransactions; i++) {
         let rlpEncodedTxn = await web3.eth.accounts.signTransaction({
             to: accountsList[i].address,
             value: txnValue.toString(),
-            gas: gasValue
+            gas: gasValue,
+            data: hexedData
         }, accountsList[(numAccounts - 1) - i].privateKey);
 
         txnValue = generateRandomInteger(lowerTransactionLimit, upperTransactionLimit);
         gasValue = generateRandomInteger(lowerGasSpendLimit, upperGasSpendLimit);
-
-        console.log(rlpEncodedTxn);
-        rlpTxnsList.push(rlpEncodedTxn);
+        randomStringLength = generateRandomInteger(0, 500);
+        hexedData = web3.utils.toHex(generateRandomString(randomStringLength));
+        
+        console.log("Hex Length", hexedData.length)
+        console.log("Data Length", randomStringLength);
+        console.log(rlpEncodedTxn.rawTransaction);
+        rlpTxnsList.push(rlpEncodedTxn.rawTransaction);
     }
 
     writeTransactionsToFile();
