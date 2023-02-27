@@ -8,7 +8,12 @@ let web3 = new Web3(new Web3.providers.HttpProvider(process.env.INFURA_GOERLI_EN
 // Global Constants
 ////////////////////////////
 let accountsList = [];
+
 let rlpTxnsList = [];
+let rlpTxnsSenderList = [];
+let rlpTxnDataList = [];
+let rlpTxnDataLengthList = [];
+
 let upperTransactionLimit = web3.utils.toWei('1000', 'ether');
 let lowerTransactionLimit = web3.utils.toWei('1', 'ether');
 let upperGasSpendLimit = lowerTransactionLimit;
@@ -56,7 +61,7 @@ function viewAccountsList() {
 
 function writeTransactionsToFile() {
     fs.writeFile(
-        './transactions-example-file.json', 
+        './outputs/transactions-example-file.json', 
         JSON.stringify(rlpTxnsList), 
         function(err) {
             if(err) {
@@ -65,6 +70,39 @@ function writeTransactionsToFile() {
             console.log("RLP Encoded Transactions list file was created");
         }
     ); 
+
+    fs.writeFile(
+        './outputs/transactions-senders-example-file.json',
+        JSON.stringify(rlpTxnsSenderList),
+        function (err) {
+            if(err) {
+                return console.log(err);
+            } 
+            console.log("RLP Encoded transactions' senders file was created");
+        }
+    );
+
+    fs.writeFile(
+        './outputs/transactions-data-example-file.json',
+        JSON.stringify(rlpTxnDataList),
+        function (err) {
+            if(err) {
+                return console.log(err);
+            } 
+            console.log("RLP Encoded transactions' data file was created");
+        }
+    );
+
+    fs.writeFile(
+        './outputs/transactions-dataLength-example-file.json',
+        JSON.stringify(rlpTxnDataLengthList),
+        function (err) {
+            if(err) {
+                return console.log(err);
+            } 
+            console.log("RLP Encoded transactions' data lengthß file was created");
+        }
+    );
 }
 
 //////////////////////////////////////
@@ -89,7 +127,7 @@ async function generateRLPEncodedTransactions() {
     }
 
     // Viewing the created accounts. Can be commented out later.
-    viewAccountsList();
+    // viewAccountsList();
 
     // Sign transactions so that RLP encoded transactions can be returned
     let txnValue = generateRandomInteger(lowerTransactionLimit, upperTransactionLimit);
@@ -105,15 +143,17 @@ async function generateRLPEncodedTransactions() {
             data: hexedData
         }, accountsList[(numAccounts - 1) - i].privateKey);
 
+        rlpTxnDataList.push(hexedData);
+        rlpTxnDataLengthList.push(hexedData.length);
+
         txnValue = generateRandomInteger(lowerTransactionLimit, upperTransactionLimit);
         gasValue = generateRandomInteger(lowerGasSpendLimit, upperGasSpendLimit);
         randomStringLength = generateRandomInteger(0, 500);
         hexedData = web3.utils.toHex(generateRandomString(randomStringLength));
         
-        console.log("Hex Length", hexedData.length)
-        console.log("Data Length", randomStringLength);
-        console.log(rlpEncodedTxn.rawTransaction);
+        // Pushing required data to different arrays
         rlpTxnsList.push(rlpEncodedTxn.rawTransaction);
+        rlpTxnsSenderList.push(accountsList[(numAccounts - 1) - i].address);
     }
 
     writeTransactionsToFile();
